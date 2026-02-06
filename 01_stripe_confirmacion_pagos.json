@@ -1,0 +1,100 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "stripe-webhook-confirmacion",
+        "options": {}
+      },
+      "id": "e64f777e-966a-4952-bc62-9721665a5d2b",
+      "name": "Webhook Stripe",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [440, 240]
+    },
+    {
+      "parameters": {
+        "assignments": [
+          {
+            "id": "76e31a8f-28c0-482a-928a-8742b87f9c8d",
+            "name": "customerEmail",
+            "value": "={{ $json.body.data.object.customer_details.email }}",
+            "type": "string"
+          },
+          {
+            "id": "67b84803-1574-4b44-9844-42f4b4f51e0e",
+            "name": "customerName",
+            "value": "={{ $json.body.data.object.customer_details.name }}",
+            "type": "string"
+          },
+          {
+            "id": "5e13d11d-3b7c-4734-b91e-359f42b39678",
+            "name": "totalAmount",
+            "value": "={{ $json.body.data.object.amount_total / 100 }}",
+            "type": "number"
+          },
+          {
+            "id": "e67b2d5d-1627-4186-b9a3-5c21f9261a8f",
+            "name": "currency",
+            "value": "={{ $json.body.data.object.currency.toUpperCase() }}",
+            "type": "string"
+          }
+        ],
+        "options": {}
+      },
+      "id": "c1682f6f-8747-4974-9883-847291a27e7d",
+      "name": "Formatear Datos",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [660, 240]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "subject": "¡Pago confirmado! Gracias por tu compra",
+        "emailType": "html",
+        "html": "=<div style=\"font-family: Arial, sans-serif;\">\n  <h2>¡Hola {{ $json.customerName }}!</h2>\n  <p>Tu pago de <strong>{{ $json.totalAmount }} {{ $json.currency }}</strong> ha sido procesado con éxito.</p>\n  <p>Ya estamos preparando todo para que tengas acceso a tu producto.</p>\n  <br>\n  <p>Saludos,<br>El equipo de automatización.</p>\n</div>",
+        "additionalFields": {
+          "toRecipients": [
+            "={{ $json.customerEmail }}"
+          ]
+        }
+      },
+      "id": "5277be34-7a31-4c65-813c-783693e54b6c",
+      "name": "Enviar Email Confirmación",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [880, 240],
+      "credentials": {
+        "googleGmailOAuth2Api": {
+          "id": "TU_CREDENCIAL_ID",
+          "name": "Gmail Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook Stripe": {
+      "main": [
+        [
+          {
+            "node": "Formatear Datos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Formatear Datos": {
+      "main": [
+        [
+          {
+            "node": "Enviar Email Confirmación",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

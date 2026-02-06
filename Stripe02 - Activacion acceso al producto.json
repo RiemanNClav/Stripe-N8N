@@ -1,0 +1,1506 @@
+{
+  "name": "Stripe02 - Activacion acceso al producto",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "429dde88-595e-454f-b9ef-314719a48cbc",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -896,
+        -208
+      ],
+      "id": "656208e9-b290-41b2-bb0d-204379075b66",
+      "name": "Webhook",
+      "webhookId": "429dde88-595e-454f-b9ef-314719a48cbc"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "665a3468-2208-488b-a19c-e46283246cd3",
+              "leftValue": "={{ $json.len }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        640,
+        -96
+      ],
+      "id": "faf5fdb4-f8ac-4027-85fd-962738b1e45a",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "registro": "0"
+          },
+          "matchingColumns": [
+            "id_transaccion"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre_activo_digital",
+              "displayName": "nombre_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        896,
+        96
+      ],
+      "id": "ebe417e4-fc4b-4a12-886b-b807b88b9e7c",
+      "name": "Update record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields.correo_electronico }}",
+        "subject": "Compra Exitosa!",
+        "message": "=Gracias por la compra del\n{{ $('Informacion del producto').item.json.data[0].description }}\nEn un momento te llegara una nueva notificacion para el acceso. ",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        96
+      ],
+      "id": "4ae5c79c-d031-4f32-b385-74fcca4d3fe3",
+      "name": "Send a message1",
+      "webhookId": "93a95cdc-005a-49b1-924c-89d4b9a42ef6",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1jKJD97xiKBmad9W",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.stripe.com/v1/checkout/sessions/{{ $json.body.data.object.id }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "stripeApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -592,
+        160
+      ],
+      "id": "79edf80a-d507-412d-99fd-6476c5895dec",
+      "name": "Compra completa",
+      "credentials": {
+        "stripeApi": {
+          "id": "snr0212ucXgt8jPx",
+          "name": "Stripe account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.stripe.com/v1/checkout/sessions/{{ $json.id }}/line_items",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "stripeApi",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -352,
+        -272
+      ],
+      "id": "d028d5ca-4811-4317-a417-331daff8c593",
+      "name": "Informacion del producto",
+      "credentials": {
+        "stripeApi": {
+          "id": "snr0212ucXgt8jPx",
+          "name": "Stripe account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtenemos la descripción del primer elemento del input\nconst description = $input.first().json.data[0].description;\n\n// Aplicamos el split por los dos puntos \":\"\nconst partes = description.split(':');\n\n// Retornamos un objeto con ambas partes procesadas\nreturn {\n  curso_id: partes[0] ? partes[0].trim() : null,\n  nombre_curso: partes[1] ? partes[1].trim() : null\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -192,
+        144
+      ],
+      "id": "8b869f28-0959-47d5-815c-a3a7ee6361fe",
+      "name": "Tipo de producto"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "correo_electronico": "={{ $('Webhook').item.json.body.data.object.customer_details.email }}",
+            "nombre": "={{ $('Webhook').item.json.body.data.object.customer_details.name }}",
+            "registro": "0",
+            "correo_compra_exitosa_enviado": "0",
+            "tipo_activo_digital": "={{ $json.curso_id }}",
+            "activo_digital_enviado": "0",
+            "acceso": "0",
+            "nombre_activo_digital": "={{ $json.nombre_curso }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre_activo_digital",
+              "displayName": "nombre_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        48,
+        -224
+      ],
+      "id": "befc7589-8fd5-4016-9eca-076fc02ecc90",
+      "name": "Registro basico",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "filterByFormula": "={id_transaccion} = '{{ $('Webhook').item.json.body.data.object.id }}'",
+        "returnAll": false,
+        "limit": 1,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        160
+      ],
+      "id": "e1dbab69-e949-4c39-a402-e91a8fca82a9",
+      "name": "Obtener registro",
+      "retryOnFail": false,
+      "alwaysOutputData": true,
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtenemos los ítems que llegan al nodo\nconst items = $input.all();\n\n// Verificamos si hay ítems y si el primer ítem tiene propiedades\n// Object.keys(obj).length === 0 detecta si el JSON es {}\nconst isNotEmpty = items.length > 0 && Object.keys(items[0].json).length > 0;\n\nreturn {\n  len: isNotEmpty ? 1 : 0\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -256
+      ],
+      "id": "00a07b6c-8f11-40be-b754-286c253ca916",
+      "name": "Validacion de registro"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "registro": "1"
+          },
+          "matchingColumns": [
+            "id_transaccion"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre_activo_digital",
+              "displayName": "nombre_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        944,
+        -192
+      ],
+      "id": "51612a86-e47f-4408-bf51-57751542a1e1",
+      "name": "Confirmacion de registro",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "94908920-1932-45a3-ab42-b14791a7f648",
+              "leftValue": "={{ $json.fields.tipo_activo_digital }}",
+              "rightValue": "Curso en linea",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1248,
+        -368
+      ],
+      "id": "4a2a5e2e-cc8a-4646-97e1-a67decf213e7",
+      "name": "Que tipo de producto es"
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": {
+          "__rl": true,
+          "value": "1maTnnmGwLCQY_X8SyNLvgQU3-55iJaB3",
+          "mode": "id"
+        },
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "reader",
+            "type": "user",
+            "emailAddress": "={{ $json.fields.correo_electronico }}"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1472,
+        -608
+      ],
+      "id": "542fc002-719f-4a81-a28e-6dbeb58da510",
+      "name": "Acceso al curso online",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "E0vpFAuwwvQCyc2b",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "acceso": "1"
+          },
+          "matchingColumns": [
+            "id_transaccion"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1744,
+        -608
+      ],
+      "id": "c464c84f-3670-45e2-9876-016c71164d0f",
+      "name": "Confirmacion de acceso",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "correo_compra_exitosa_enviado": "1"
+          },
+          "matchingColumns": [
+            "id_transaccion"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre_activo_digital",
+              "displayName": "nombre_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        2464,
+        -464
+      ],
+      "id": "6e6d6021-b35c-409c-9085-725e9a8e3a22",
+      "name": "Confirmacion correo enviado",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "=angel.chavez.clavellina@gmail.com",
+        "subject": "=Nueva Compra: {{ $('Informacion del producto').item.json.data[0].amount_total }} {{ $('Informacion del producto').item.json.data[0].currency }}",
+        "message": "=Nueva Compra Detectada:\n\nid_transaccion: {{ $('Confirmacion de acceso').item.json.fields.id_transaccion }}\n\nnombre: {{ $('Confirmacion de acceso').item.json.fields.nombre }}\n\ndescripcion: {{ $('Informacion del producto').item.json.data[0].description }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2848,
+        -432
+      ],
+      "id": "1a69a27f-c6a6-4281-9524-fd6de09538ad",
+      "name": "Canal de comunicacion con dueno del producto",
+      "webhookId": "93a95cdc-005a-49b1-924c-89d4b9a42ef6",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1jKJD97xiKBmad9W",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields.correo_electronico }}",
+        "subject": "=Compra Exitosa y Envio de Acceso - {{ $('Informacion del producto').item.json.data[0].description }}",
+        "message": "=Gracias por la compra!\nTe comparto el ebook, que lo disfrutes\nhttps://drive.google.com/file/d/1lBvPlYS-ivGNDkHebagHOmjSUzH0iRzn/view?usp=sharing",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1520,
+        -144
+      ],
+      "id": "f62725c8-7364-44fc-8db1-970e28ca688b",
+      "name": "Envio de activo digital",
+      "webhookId": "93a95cdc-005a-49b1-924c-89d4b9a42ef6",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1jKJD97xiKBmad9W",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appFmSumbJ4jEijdd",
+          "mode": "list",
+          "cachedResultName": "NeuroPay",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblJcLQufcZuwuYTU",
+          "mode": "list",
+          "cachedResultName": "02_Compras",
+          "cachedResultUrl": "https://airtable.com/appFmSumbJ4jEijdd/tblJcLQufcZuwuYTU"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id_transaccion": "={{ $('Webhook').item.json.body.data.object.id }}",
+            "acceso": "1"
+          },
+          "matchingColumns": [
+            "id_transaccion"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "id_transaccion",
+              "displayName": "id_transaccion",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_electronico",
+              "displayName": "correo_electronico",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "registro",
+              "displayName": "registro",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "correo_compra_exitosa_enviado",
+              "displayName": "correo_compra_exitosa_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "tipo_activo_digital",
+              "displayName": "tipo_activo_digital",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "activo_digital_enviado",
+              "displayName": "activo_digital_enviado",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "acceso",
+              "displayName": "acceso",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1856,
+        -240
+      ],
+      "id": "6748a957-12ff-4507-b177-7f73ec86da31",
+      "name": "Confirmacion de envio",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "xokNcpiZ3P9yUju4",
+          "name": "NeuroPay"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields.correo_electronico }}",
+        "subject": "=Compra Exitosa y Envio de Acceso - {{ $('Informacion del producto').item.json.data[0].description }}",
+        "message": "=Gracias por la compra!\nSe te ha dado acceso al curso, revisa tus notificaciones de google drive. \nhttps://drive.google.com/drive/folders/1maTnnmGwLCQY_X8SyNLvgQU3-55iJaB3?usp=sharing",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2176,
+        -192
+      ],
+      "id": "28062432-5648-48ae-8e20-0914f3a1fc6a",
+      "name": "Envio correo de envio al usuario",
+      "webhookId": "93a95cdc-005a-49b1-924c-89d4b9a42ef6",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1jKJD97xiKBmad9W",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.fields.correo_electronico }}",
+        "subject": "=Compra Exitosa y Envio de Acceso - {{ $('Informacion del producto').item.json.data[0].description }}",
+        "message": "=Gracias por la compra!\nSe te ha dado acceso al curso, revisa tus notificaciones de google drive. \nhttps://drive.google.com/drive/folders/1maTnnmGwLCQY_X8SyNLvgQU3-55iJaB3?usp=sharing",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2080,
+        -592
+      ],
+      "id": "b1da350c-09dc-4543-aba2-e41a40a268f5",
+      "name": "Envio correo de acceso a usuario",
+      "webhookId": "93a95cdc-005a-49b1-924c-89d4b9a42ef6",
+      "alwaysOutputData": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "1jKJD97xiKBmad9W",
+          "name": "NeuroPay"
+        }
+      },
+      "onError": "continueErrorOutput"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Compra completa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion de registro",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record1": {
+      "main": [
+        [
+          {
+            "node": "Send a message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compra completa": {
+      "main": [
+        [
+          {
+            "node": "Informacion del producto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Informacion del producto": {
+      "main": [
+        [
+          {
+            "node": "Tipo de producto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tipo de producto": {
+      "main": [
+        [
+          {
+            "node": "Registro basico",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registro basico": {
+      "main": [
+        [
+          {
+            "node": "Obtener registro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Obtener registro": {
+      "main": [
+        [
+          {
+            "node": "Validacion de registro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validacion de registro": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion de registro": {
+      "main": [
+        [
+          {
+            "node": "Que tipo de producto es",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Que tipo de producto es": {
+      "main": [
+        [
+          {
+            "node": "Acceso al curso online",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Envio de activo digital",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Acceso al curso online": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion de acceso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion de acceso": {
+      "main": [
+        [
+          {
+            "node": "Envio correo de acceso a usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion correo enviado": {
+      "main": [
+        [
+          {
+            "node": "Canal de comunicacion con dueno del producto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envio de activo digital": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion de envio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Confirmacion de envio": {
+      "main": [
+        [
+          {
+            "node": "Envio correo de envio al usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envio correo de envio al usuario": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion correo enviado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Envio correo de acceso a usuario": {
+      "main": [
+        [
+          {
+            "node": "Confirmacion correo enviado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "28d67285-77fe-4ce8-9cf8-a96b32e95271",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d42be5aa9b7879a93efe3d0807dacb3e57bb13af7d72858edfe2155db275b066"
+  },
+  "id": "PSeJ6ucvA44juqBfSkNLu",
+  "tags": []
+}
